@@ -1,0 +1,78 @@
+##Timing
+
+what i did today
+2 hr live class
+1 hr learns linux command learns
+2 hr watched Yutube videos related to linux
+30 minEC2 setup 
+1 hr PUBLIB VS PRIVATE IPS
+1 hour English reading
+30 min LINUX VS window
+30 min IaaS PaaS SaaS
+30 min CIDR role and used 
+30 putty download 
+
+tomorrow's Task
+1 hr will learns linux command learns
+1 hr English readng 
+
+Code Practice
+
+## Ansibl - Install & E nable nginx
+- name: Install and start Nginx on pahnex
+  host:: all
+  beome: all
+
+  tasks:
+     - name : Install nginx
+       yum:
+     name:nginx
+     state: present
+
+    - name: Enable nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+
+## Terraform - EC2 with Tags (r5.2xlarge)
+provider "aws"  {
+  region = "us-east-1"
+}
+ 
+resource "aws_instance" "pathnexEC2" { 
+  amie          =  "ami-0abcd1234abcd1234"
+  instance_type = "r5.2xlarge"
+  tags = {
+    Name          = "pathnex-Server"
+    Enviournment  = "Training"
+    Owner         = "PathnexStudent"
+     }
+   }
+
+## kubernetes - Deployment with 2 Rreplcas
+apiversion: apps/v1
+kind: Deploylment
+metadeta:
+  name: pathnex-deployment
+spce:
+  replicas:2
+  selector:
+    matchlabs:
+      app:pathnex-app
+  tamplate:
+    metadata:
+    labels:
+        app:pathnex-app
+    spec:
+       containers:
+        - name: app
+          image : nginx
+          ports:
+             -containerport:80
+## Shell Script - Disk Usage
+#!/bin/bash
+df -h
+
+
