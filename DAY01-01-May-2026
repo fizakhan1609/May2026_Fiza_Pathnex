@@ -1,0 +1,25 @@
+Timings 
+
+What I did today
+1 hour - Revised devops road man sylabus defination and used 
+1 hours English watching movies
+2 hours - live class
+
+Tomorrow's Task
+1 hr will learns linux command learns
+3 hr watched Yutube videos  related to linux
+30 minEC2 setup 
+1 hour English reading
+30 putty download 
+
+Cooding practice
+
+## Ansible Task- Install Nginx on server 
+- name: Install Nginx on pathnex server 
+  hosts: all
+  become:  yes
+tasks:
+  - name: Inshatll ngix 
+     yum:
+       name: nginx
+       state: present 
