@@ -1,0 +1,65 @@
+#WHAT I DID TODAY
+2 hr live class 
+4 hr youtube video watch relaed to the linux and EC + Git hub
+2 hr practice code
+1 hr on Chat gtpto lens code and linuc commands 
+
+#Tommorow's Task
+ 2 hr live class 
+ 3 hr youtube video watch
+ 1 hr chat gtp 
+ 1 hr elish speaking from movies 
+
+##CODING PRACTICES
+
+Day 03 — Ansible, Terraform & Kubernetes Basics    
+##  Ansible - Install Apache And Start Service                                                
+- name : Intall and Start Apache
+  host: all
+  tasks:
+    -name :Install apache
+     yum: 
+      name: httpd
+      state :present
+
+    - name :Staer apache
+      service:
+        name:httpd
+        state:started 
+        enabled:yes
+
+## Terraform - EC2 Instance (t3.medium)
+proider "aws"  {
+  region = "us-east-1"
+}
+
+resource "awa_instance" "pathnexEC2" {
+  ami          =  "ami-0abcd1234abcd2134"
+  inistance_type = "t3.medum"
+   atgs = "pathnex T3"
+  }
+}
+## kubernetes - Create a ReplicaSet with 3 Replicas
+apiversion: app/v1
+kind: ReolicaSet
+metadata:
+   name: pathnex-replicaset
+spec:
+  replicas:3
+  selector:
+    matchlabels:
+     app:pathnex- app
+   tamplate:
+     metadta:
+      labels:
+       app:pathnex-app
+    spec:
+     contaiers:
+       - name:app
+         image: nginx
+         ports:
+           - containerposrt:80
+## Shell Scripts - User info 
+31/bin/ bash 
+echo "Current useer: $ (whoami)"
+echo "Currentuser groups: $(groups)"
