@@ -1,0 +1,123 @@
+What i did today
+1 hr watch movie and speking 
+2 hr live youtube viedeo watch 
+2 hr sameday youtube video watched study revision linux file permission command ,  file compression archiving commands
+30 min code practice and typing 
+1 hr previous session learning
+1 hr youtube viedo watched related t the linux 
+1 hr linux notes study
+
+Tomorrow's Task
+1 hr watch movie and speking 
+2 hr live youtube viedeo watch 
+2 hr sameday youtube video watched study revision
+30 min code practice and typing 
+1 hr linux notes study
+
+Day 04 — Basic CI/CD Concepts with Jenkins & Gitlab
+
+## Jenkisfile — Basic CI Pipeline
+pipeline {
+    agent any
+    stages { 
+       stage ('Build') }
+           steps {
+              echo 'Building Project'
+            }
+        }
+       stage ('Test') }
+         steps  { 
+             echo 'running tests'
+           }
+      }
+       stage ('Deploy') }
+             steps {
+                echo Deploymening application'
+           }
+       }
+
+   }
+}
+
+
+## GitLab C/CD - Basic Pipelie
+strages:
+  -buld 
+  -test
+  -deploy
+
+build
+  stage:build
+  script:
+   ech "Buildig project"
+
+test:
+stage:test
+script:
+  -  echo"unning tests"
+
+deploy:
+ stage:deploy
+  script:
+   - echo " Dploying Application"
+
+
+## Ansible - Intall and Confgure Ngix 
+- name: Install and configure Nginx 
+  host:all
+  become:yes 
+  tasks:
+    -name:Install nginx 
+      yum:
+        name: nginx
+        state: present 
+    - name: Configure nigix 
+      template:
+       src: nginx.conf.j2
+       dest:/etc/nginx/nginx.conf
+    - name: Start nginx service 
+      service:
+         name: nginx 
+         state: satrted
+         enabled: yes 
+
+
+- name: Install nginx
+      yum:
+        name: nginx
+        state: present 
+   - name : Configure nginx
+     tamplate:
+       src: nginx.conf.jr
+       det: /ect/nginx/nginx.conf
+   - name : Start nginx service
+     service:
+       name: nginx
+       state: started
+       enabled: yes
+
+
+## Terraform - EC2 with Security Group 
+ reouce "aws_security_group" "example" {
+name         =  "example_securty_group"
+description  =  "allow SSHand Http"
+ingress {
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+ cidr_blocks  = ["0.0.0.0/0"]
+  }
+  ingress { 
+   from_port   = 80
+   to_port     = 80
+   protocol    = "tcp"
+    cidr_blocks + [0.0.0.0/0"]
+   }
+  
+  egrees {
+    from_port   = 0
+    to_port     = 0
+    protocl     + "-1"
+    cdr_blocks + ['0.0.0.0/0"]
+  }
+}
