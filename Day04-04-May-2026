@@ -16,7 +16,7 @@ Tomorrow's Task
 
 Day 04 — Basic CI/CD Concepts with Jenkins & Gitlab
 
-## Jenkisfile — Basic CI Pipeline
+## Jenkinsfile — Basic CI Pipeline
 pipeline {
     agent any
     stages { 
@@ -49,7 +49,7 @@ strages:
 build
   stage:build
   script:
-   ech "Buildig project"
+   echO "Buildig project"
 
 test:
 stage:test
@@ -64,14 +64,14 @@ deploy:
 
 ## Ansible - Intall and Confgure Ngix 
 - name: Install and configure Nginx 
-  host:all
+  hosts:all
   become:yes 
   tasks:
     -name:Install nginx 
       yum:
         name: nginx
         state: present 
-    - name: Configure nigix 
+    - name: Configure nginx 
       template:
        src: nginx.conf.j2
        dest:/etc/nginx/nginx.conf
@@ -87,7 +87,7 @@ deploy:
         name: nginx
         state: present 
    - name : Configure nginx
-     tamplate:
+     template:
        src: nginx.conf.jr
        det: /ect/nginx/nginx.conf
    - name : Start nginx service
@@ -98,7 +98,7 @@ deploy:
 
 
 ## Terraform - EC2 with Security Group 
- reouce "aws_security_group" "example" {
+ resource "aws_security_group" "example" {
 name         =  "example_securty_group"
 description  =  "allow SSHand Http"
 ingress {
@@ -114,10 +114,10 @@ ingress {
     cidr_blocks + [0.0.0.0/0"]
    }
   
-  egrees {
+  egress {
     from_port   = 0
     to_port     = 0
-    protocl     + "-1"
+    protocol     + "-1"
     cdr_blocks + ['0.0.0.0/0"]
   }
 }
