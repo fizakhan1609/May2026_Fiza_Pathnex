@@ -1,0 +1,104 @@
+What i did today
+1 hr Engish Reading 
+2 hr live youtube viedeo watch 
+1 hr sameday youtube video watched study revision linux file permission command , 
+30 min code practice and typing 
+1 hr Script video wactched
+1 hr youtube viedo watched related to the linux 
+1 hr linux notes study 
+
+Tomorrow's Task
+1 hr watch movie make more fluency
+2 hr live youtube viedeo watch 
+2 hr sameday youtube video watched study revision
+30 min code practice and typing 
+1 hr notes study
+
+# Day 05 — AdvanceD CI/CD and infrastructure Provisioning
+
+##    Jenkisnfline - With Git Integration and Testing 
+"""grovy 
+pipeline {
+    agent any 
+    stages {
+pipeline {
+        stage('Clone Repository') {
+            step {
+               git 'https://github.com/pathnex/sample-repo,git'
+             }
+        }
+        stages ('Buid') {
+            steps  {
+              echo  'building project fom Git repository'
+            }
+         }
+        stage ('Test')
+           steps {
+               echo 'Running unit tests'
+           }
+       } 
+       stage ('Deploy') {
+          steps {
+               echo 'Dploying applictioin'
+            }
+        }
+    } 
+ }
+
+
+ ## GitLab CI/CD - Wth Docker Build 
+ stages:
+  - build 
+  - push
+  -deploy
+
+build:
+  stage: build 
+  script:
+  - docker build -t pathnex-app
+
+push: 
+  stage: push
+  script:
+   - docker push pathnex-app
+
+deploy:
+  stage: deploy
+  script:
+   - kubectl apply -f kubernete/deployment.yaml
+## Ansiable- Create User and Set Permission
+- name: Certe a new user
+  hosts:  all
+  become: yes  
+  tasks:
+  - name: Crete user
+     user:
+     name:pathnex
+     state: present 
+     shell:/bin/bash
+  - name: Set permissions for the user 
+    file:
+      path: /home/pathnex
+      owner : pathnex 
+      group : patnex
+      mode: '0755'
+## Terraform -- EC2 with Tags and Volum
+       path: /home/athnex
+       owner: pathnex
+       grou: patnex
+       mode: '0755'
+## Terraform -- EC2 with tags and Volum
+ resource "aws_insance" "PathnercEC2" {
+ ami            "ami_0abcd1234abcd1234"
+ instance_type = "t2.mediu"
+
+tags = {
+  Name = "pathnex-Server"
+ }
+
+ ebs_block_device {
+   device_name = "/dev/sah"
+   volume_size = 50 
+
+  }
+}
