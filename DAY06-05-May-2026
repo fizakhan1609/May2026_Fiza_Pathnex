@@ -1,0 +1,78 @@
+#Timings 
+
+What I did today
+30 min  - coding practice
+1 hours - English watching movies
+2 hours - live class
+1 hr    - Chatgtp Interview Question revised
+2 hr    - previous git video watched 
+
+Tomorrow's Task
+1 hr will learns git and apply commmand 
+2 hr watched Yutube videos  related to Git
+30 coding practice 
+1 hour English vocabulary learn
+2 hr all styudy revised 
+2 hr AWS learn  
+
+# Dy 06 - Introductio to CloudFormation and Kubernetes Advanced Concepts
+
+##   Ansiable  - Install Docker
+
+'''yaml
+-  name: Inatsll Docker 
+   hosts: all
+   become: yes 
+   tasks: 
+    - name: I nstall Dockeer
+    yum:
+     name: docker 
+        state: presemt 
+    - name: Start Docker
+      servce:
+        name: dcker 
+         start: started
+         enabled: yes
+
+      
+## Terraform - Provisoining EC2 with VPC 
+resouce "aws_vpc"  "main" {
+   cidr_block = "10.0.0./16"
+}
+
+resorce  "aws_instance" "pathnec_ec2" {
+ ami            = "ami-0abcd1234abcd1234"
+instance_type = "t3.medium"
+subnet_id     = aws_subnet.main.id
+tags  = {
+  Name = "pathnec-EC2"
+  }
+}
+## Kubernetes -- Pod wth Volume Mount
+apiVersion: V1
+kind:pod
+metadata:
+    name: pathnec-pod
+ spec:
+  containers:
+    - name: web
+      image: nginx
+      vloumMounts:
+        - mountpath:/ user/share/gix/html
+          name: html-volume
+  volumes:
+   - name:html-volume
+     hostpath:
+       path: /data
+       type: Directory
+## Shell Script -- Check for Runining Services
+#!/bin/bash
+services=("nginx "deocker" "httpd")
+for service i${services[@]
+do
+  if systemctl is activate -- quite $servce: then
+   echo"$service is running"
+  else
+  echo "$service is not runnig"
+ fi
+done
