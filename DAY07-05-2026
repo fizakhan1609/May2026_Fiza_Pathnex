@@ -1,0 +1,83 @@
+Timings 
+
+What I did today
+2 hours - live class
+1 hour - Revised Same day class 
+1 hours English watching movies
+1 hr wth chat gt search with examples 
+1 hr coding practice and explainanton 
+
+
+Tomorrow's Task
+2 hr will learns AWS LIVE class
+2 hr watched Yutube videos  related to AWS
+1 hr revised 
+30 min notes read 
+1 hr coding practice and explainanton
+
+
+Day 07 -- Automting Cloud Infrastructure with Terraform & Ansible
+## Ansible - Setup Nginx with Custom Config 
+- name: Setup Nginx with Custom Config
+ hosts: all
+  become yes 
+  tasks: 
+   -  name: Install Nginx
+    yum:
+      name:nginx
+      state: present
+    - name: copy cutom niginx.conf
+      copy:
+       src: nginx.conf
+       dest: / sct/nginx/nginx.conf
+    - name: start nginx service
+       service 
+         name:nginx
+         state: started 
+         eable : yes
+## Terraform -- Provision EC2 with IAM Role
+resource "aws_iam_role" ""ec2_role
+name                = "pathnex_ec2_role"
+  assume_role_policy =  jsonencode9{
+   version + "2012-10-17"
+  Statement = {
+    {
+      Avtion =  "sts:AssuumeRole"
+      Effect = "Allow"
+        principlal= {
+         Service = "ec2.amaxonaws.com"
+        }
+    }'
+   ]
+   }}
+]
+
+resource "aws_nstance" "pathnex_ec2"
+ ami           = "ami-0abcd1234bacd1234"
+ iam_instace_profile = aws_iam_role.ec2_roe.name
+tags = {
+  Name = "pathnex-Ec2"
+ }
+}
+
+## Lubernetes - ConfigMao and Secret Management
+apiVersion:V1
+kind: ConfigMap
+metadata:
+   name: pathnex-config
+data:
+  ap.properties:  |
+
+    key=value
+
+---
+apiversion: v1
+kind:secret
+metadata:
+   name:pathner-secret
+type: Opaque
+data:
+   password: cGF0aG5leHBhc3M=
+33 Shell Script -- Archive Logs
+#!/b/ash
+tar -czf /var/log/archived_lg.tar.gz /var/log/*.log
