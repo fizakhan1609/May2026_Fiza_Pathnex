@@ -1,0 +1,106 @@
+Timings 
+
+What I did today
+2 hours - AWS live class
+2 hour - Revised Same day class 
+1 hr wth chatgtp search with examples 
+1 hr notes learn
+
+
+Tomorrow's Task
+2 hr will learns AWS class
+2 hr revised 
+1 hr min notes theory 
+1 hr coding practice and explainanton
+
+Day 09 - Docker Intergrayion with Jekis & GitLab
+## Ansible - Setup Docker Contariner for Nginx
+- name: Setip Docker Continer for Nginx
+ hosts: all
+ bcome: yes
+  tasks:
+    - anme:Pull Nginx image
+      docker_image:
+       name: nginx
+       source:pull
+    - name: ngnix
+      source:pull
+       - name: Run Nginx container
+      docker_container:
+       name: nginc-container
+      image:nginx
+      state: started
+        publihed_ports:
+         -"8080:80"
+## Terrafom EC2 with Aut Scalling Group
+resource "aws_launch_configurtaion" "example" {
+  name = "example-config"
+  iamge_id = "ami-0abcd1234abdc1234"
+  nstance_type = "t3.medium"
+}
+
+resourc "aws_autodcaling_group" "example" {
+  desird_capacity      = 2
+  max_size             = 3
+  min_size             = 1
+  vpc_zone_identifier  = ["subnet-12345678"]
+  launch_configration  = aws_launch_configuration.example.id
+}
+## Kubernetes - Horizontal Pod Autoscaler) (HPA)
+apiVersion: app/v1
+kind:Deployment
+metadata:
+   name: pathnex-dployement
+space:
+   repicas:
+   selector:
+math=chLabels:
+      app: pathnex-app
+  tamplete:
+  metadata:
+    labels:
+      app: pathnex-app
+          space:
+      containers:
+       -  name: nginx
+          iamge: nginx
+          ports:
+            - cotainerport:80
+
+---
+
+apiVersion :autoscallng/v2
+kind: HorizontalpodAtoscaler
+metadata:
+  name: pathex-hpa
+space:
+  scaleTaergetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pathnex-deplyemnt
+  minReplicas:1
+  maxReplicas:10
+  targetCPUUtilizationPercentage:50
+
+## Jenkisfile - Deploy to Kubenetes
+pipeline {
+    agent any 
+    stage {
+       stage('deploy to kubernetes') {
+         stes {
+            scripts {
+                  sh 'kubectl apply -f deplouement.yaml'
+                }
+            }
+        }
+    }
+}
+
+GitLab CI/CD - Depoy to Kubernetes
+stages:
+- deploy
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f kubernetes/deployment.yaml
