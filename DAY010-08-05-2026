@@ -1,0 +1,153 @@
+Timings 
+
+What I did today
+2 hours - AWS 
+1 hr wth chatgtp search with examples 
+1 hr notes learn
+1 hr english readng 
+
+
+Tomorrow's Task
+3 hr will learns Docker LIVE class
+2 hr watched Yutube videos  related to Docker
+1 hr revised 
+1 hr notes theory 
+1 hr coding practice and explainanton
+
+
+# Day 10- Advanced Kubernetes, Jenkins, and GitLab CI
+
+## Ansible — Create Docker Containers for Multiple Applications
+``` yamk
+- name: Steip Docker Coteriners for Multiple Apps 
+  hosts: all
+  beome: all
+  tasks:
+    - name: pull Web App Image
+      docker-image:
+        name: my-web-app
+        source:pull
+ 
+     - name: pull Datatbase App Image
+       docker_image:
+         name: my databas- app
+         source:pull
+          
+    - name: Run Web app Container 
+      docker_containers:
+        name:web-app
+        iamge:my-web-app
+        state: started
+        published_ports:
+         - "8080:80"
+
+    - name: Run Database App Container
+      docker_cntainer:
+        name:databas-app
+        iamge:my-database-app
+        state:started
+        pblished_ports:
+        - "3306:3306"
+
+## Terraform — VPC with Private and Public Subnets
+ressource "aws_vpc" "main" {
+  cid_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "public" {
+  vpc_id                  = aws_vps.main.in
+  cide_bock               = "1.0.1.0/24"
+  avialbility             = "us-est-la"
+  map_public_ip_on_launch = true
+}
+
+resource "aws_subnet" "prvate" {
+  vpc_id            = aws_vps.mai.id
+  cidr_block        = "10.0.2.0/24"
+  availablity_zone  = "us-east-1b"
+}
+
+## Kubernetes — Deploying StatefulSet
+apiVersoin: apps/v1
+Kind: Statefulset
+metadata:
+  name: pathnex-db
+space:
+  serviceName: "pathnex-db"
+  replicas: 3
+  seector:
+   mathLabels:
+      app: pthnex-db
+ tamplate:
+    metadata:
+      labels:
+        apps:pathnex-db
+    spec:
+      containers:
+       -name:
+          image: mysql:5.7
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-storage
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+
+## Jenkinsfile — Build and Deploy to Kubernetes
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME = 'pathnex-web-app'
+    }
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${env.IMAGE_NAME}")
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://docker.io', 'docker-credentials') {
+                        docker.image("${env.IMAGE_NAME}").push('latest')
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh 'kubectl apply -f deployment.yaml'
+                }
+            }
+        }
+    }
+}
+## GitLab CI/CD — Build, Push, and Deploy
+stages:
+  - build
+  - push
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t pathnex-web-app .
+
+push:
+  stage: push
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+    - docker push pathnex-web-app
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f kubernetes/deployment.yaml
