@@ -1,0 +1,147 @@
+Timings 
+
+What I did today
+3:40 hr min - HELM  live class
+2  hour - Revised Same day class youtube
+1 hr wth chatgtp search with examples 
+40 min hr min coding practice and explainanton 
+1 hr notes learn
+30 min interview practice and viedo making
+50 min evening class 
+ 
+
+Tomorrow's Task
+3 hr will learns ArgoCD class
+2 hr revised live class
+1 hr notes theory and create own notes foe underanding  
+1 hr coding practice and explainanton
+30 min interview practice and viedo making
+40 min evenig class
+
+DAY 19 - Advaned  Monitoring, Logging, and Security
+## Ansible -- Setup Prometheus for Monitoring
+- name: Install Prometheus for Monitoring
+  hoss: all
+  become: yes
+  tasks:
+    - name: INstall prometheus dependencies
+      yus:
+        name:
+          - prometheusn-node-exporter
+        state: present
+
+    - name: Start Promothrus service
+
+    - name: Start Prometheus service
+      service: 
+        name: prometheus
+        state: started
+        enabled: yes
+
+## Terraform — Setup AWS CloudWatch for Monitoring
+resource "aws_cloudwatch_log_group" "pathnex_log_group" {
+  name = "pathnex-log-group"
+}
+
+resource "aws_cloudwatch-log_stream" "pathnex_log_stream"
+  log_group_name = aws_cloudwatch_log_group_pathnex_log_group.name
+  name           = "pathnex-log-stream"
+}
+## Kubernetes - Deploy Flunted for logging
+apiVersion: apps/v1
+kind: Deployemnet
+metadata:
+   nam: fluentd
+
+space:
+  replicas: 1
+  selector:
+   matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+     spec:
+
+      containers:
+        - name: fluentd
+          image: fluened?fluentd
+          posrt:
+             - containerPort: 24224
+
+---
+apiVersion: v1
+kind: Serice
+metadata:
+  name: fluentd
+spec:
+  selector:
+    app: fluented
+  ports:
+    - protocol: TCP
+      protocol: TCP
+      port: 24224
+## jenkinsfile - Integrating Prometheus Monitorig in Pipeline
+pipelie {
+    agent any
+    stage{
+        stage('Build') {
+           steps {
+                 ech 'Buildig Doker image...'
+                docker.build('pathnex-web-app')
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+        stage('Monitor Deployment') {
+            steps {
+                script {
+                    sh 'kubectl apply -f kubernetes/deployment.yaml'
+                    sh 'kubectl get pods --watch'
+                }
+            }
+        }
+    }
+}
+## GitLab CI/CD --Prometheus and logging Integration 
+stages:
+  - build 
+  - push
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build -t pathnex-web-app .
+
+push:
+  stage:push
+  script:
+    - docker login -u "$CI_REGISTERY_USER" -P $CLI _REGISTR_PASSWORD"
+    - docker push pathnex-web-app
+
+deploy:
+  stage:deploy
+  script:
+    - kuectl apply -f kubernetes/deployment.yml
+    - kubectl get pods --watch
+
+## Docker
+# Flask Application (Python)
+from flask import flask
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "Hello Patgnex"
+apprun(host='0.0.0.0', port=5000)
+
+# Docker File 
+FROM python:3.11
+WORKDIR /opt/pathnex/flask-app
+COPY . /opt/pathnex/flask-app/
+RUN pip install flask
+CMD ["python", "/opt/pathnex/flask-app/app.py"]
