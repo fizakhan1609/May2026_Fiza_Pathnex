@@ -1,0 +1,103 @@
+WHAT I DID TODAY
+2 hr morning class
+1 hr revised youtube video
+1 hr chat gtp 
+30 min evening class
+1 hr coding and explain 
+
+
+TOMMOROW PLAN
+2 hr will learn linux
+1 hr revised youtube video
+1 hr chat gtp 
+30 min evening class
+1 hr coding and explai
+
+# Day 01 - Basics
+
+##    Ansible Task - Install Nginx on Pathnex Server
+
+Rewrite this Yaml manually:
+
+--- 
+- nam: Install Nginx on pathnex server
+  host: all
+  become: yes
+
+  tasks:
+    - name: Install nginx
+      yum:
+       name: nginx
+        state: present
+ ## Terrafrom Task - Create EC2 (c5.xlarge)
+
+provider "aws"
+   region  = "us-east-1"
+ }
+
+
+resource "aws_instance" "pathnexEC2" {
+  ami           =  "ami-0abcd1234abcd1234"
+  instance_type = "c5.xlagrge"
+
+  tags = {
+    Nmae = "Pathnex-EC2"
+  }
+}
+
+
+##    Kubernetes Task - Create Nginx Pod 
+
+apiVersion: v1 
+kind: pod
+metadata:
+  name:pathnex-pod 
+spec:
+  containers:
+    - name: web
+      iamge:nginx:lastest
+      ports:
+        -containerPort:80
+
+
+## Shell Script - Print Data & Hostnameame
+
+#!/bin/bash
+echo "date: $(date)"
+echo "Hostname: $(hostname)"
+
+
+
+# Git Integration
+## Jnkins pipeline - Checkout Git 
+you will learn how to **checkout a Git repository** snd list files.
+
+pipeline {
+    agent any
+    stage {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.compathnex/sample-java-app.git'
+            }
+        }
+        stage('List Files') {
+            steps {
+                sh 'ls-la'
+            }
+        }
+    }
+}
+ 
+## GitLab CI - Checkkubout Git 
+You will learn how to **checkout a Git repository in GitLab CI**
+
+stages:
+  - checkout
+
+git-checkout:
+stage: checkout
+  script:
+   - git clone https://github.com/pathnex/sample-java-app.git
+    - cd sample-java-app
+    - ls -la
+  
