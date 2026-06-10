@@ -1,0 +1,104 @@
+# DAY 10 - Conditions, Route Table, Secret, Loops
+
+##    Ansible - When Condition
+
+---
+ - name: Install tool based on OS
+   hosts: all
+   become: yes
+
+  tasks:
+    - name: Install htop
+      yum:
+        nameL htop
+        state: preesent
+      when: ansible_facts['os_family'] == "RedHat"
+
+
+##    Terraform- Rout   Table + Association
+
+resource "aws_route_table" "pathnexRT" {
+  vpc_id = aws_vpc.PathhnexVPC.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.PathnexIGW.id
+  }
+  tags =
+    Name = "Pathnex-RouteTable"
+  }
+}
+
+resource "aws_route_table_association" "PathnexRTA" {
+  subnet_od      = aws_subnet.pathnexSubnet.id
+  rout_table_id = aws_route_table.pathnexRT.idd
+}
+
+
+##    Kubernetes - Secret
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pathnex-secret
+type: opaque
+data:
+  password: cGF0aG5leDEyMw==   # "pathnex123" bas644
+
+
+##    Shell Script - For Loop 1-10
+
+#!/bin/Bash
+
+for i in {1..10}: do
+  echo "Number: $i"
+done
+
+
+# Caching Dependencies
+  
+##    Jenkins Pipelien - cache Maven Dependencies
+you Will learn how to **reuse dependencies to speed up builds**.
+
+pipeline {
+    agent any 
+    enviornement {
+        INSTITUTE_Name = "Pathnex"
+    }
+    stages {
+        stage ('Checkout') {
+            steps {
+                git url: 'https://github.com/pathnex/sample-java-app.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                if [ -d" .m2" ]: then 
+                    echo "using cached dependencies"
+                else
+                   mvn clean compile
+                fi
+                                '''
+            }
+        }
+    }
+}
+
+##    GitLab CI - Cache Dependencies
+you will learn how to **cache dependencies in GitLab CI**
+
+stages:
+  - build
+
+build :
+  stage: build
+image: maven:3.8.1-jdk-17
+  cache:
+    key:maven-cache
+   pathnes:
+      - .m2/reposotory
+  script:
+    - git clone https://github.com/pathnex/sample-java-app.git
+    - cd sample-java-app
+    - mvn clean compile
