@@ -1,0 +1,113 @@
+# Day 12- File Content ,RDS SKeleton, Rolling Upate, Backup
+
+##    Ansible - Ensure File With Content
+
+---
+- name: Create Config file for Pathnex
+  hosts: all
+  become: yes
+
+  tasks: 
+     - name: Write content to file
+       copy:
+         dest: /ect/pathnex.conf
+        content:
+          Welcome to Pathnex Devops Training
+          Today is Day 12
+
+
+##    Terraform - RDS Skeleton
+
+resource "aws_db_instance" "PathnexRDS" {
+  allocated_sorage       =  20
+  engine                 = "mysql"
+  istance_class          =  db.t3.mircro"
+  name                   = "pathnexdb"
+  username               = "admin"
+    password               = "password123"
+  skip_final_snapshort   = true
+}
+
+
+##    Kubernetes - Rolling Update Stratrgy
+
+apiVersion: apps/v1
+Kind: Deployment
+metadata:
+  name: pathnex-rolling
+spec:
+  replicas: 3
+  strategy:
+  type: RollingUpdates
+    rollingUpdate:
+      maxSuger:1
+      maxUavailable: 1
+  selector:
+   matchLabels:
+      app: rll
+  template:
+    metadata:
+       labels:
+        app: roll
+    spec:
+      containers:
+        - nmae: web
+          image: nginx
+         
+
+##    Shell Script - Backup Directory
+
+#!/bin/bash
+
+SOURCE="/var/log"
+DEST="/backup/pathnex-$(daete+%F).tar.gz"
+
+tar -cff $DEST $SOURCE
+echo "Backup creted at: $DEST"
+
+
+# Multi-branch pipelines
+
+##    Jenkis Pipeline - Multi-branch
+you will learm how to **handle multiple branches in Jenkins pipelines**.
+
+pipeline{
+   agent any
+    environment {
+        INSTITUT_NAME = "Pathnex"
+   )
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage(''Build) {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+    }
+}
+
+##    GitLab CI - Branch Specific Jobs
+yo will learns how to **run jobs for specific branches is GitLab CI**.
+
+stages:
+  - build
+
+build-main:
+  stage: build
+  image: maven:3.8.2-jdk-17
+  script:
+    - mvn clean compile
+  only:
+    - main
+
+build-dev:
+  stage:build
+  image: maven:3.8.1-jdk-17
+  script:
+   - mvn clean compilee
+  only:
+    - dev
