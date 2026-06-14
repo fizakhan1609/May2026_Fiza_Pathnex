@@ -1,0 +1,60 @@
+# Day 14 - MINI PROJECT
+
+Complete these steps:
+
+##    Terraform - Create EC2 (any instance type)
+
+- VPC
+- Subnet geteway
+- Interent gateway
+- Rute table
+- EC2 (c5.xlarge / r5.2xlarge / r6i.4xlarge / c6i.8xlarge / c6a.12xlarge)
+
+
+##  Ansible — Install Nginx & Deploy HTML File
+
+##  Kubernetes — Create Deployment + Service
+
+##  Shell — Print CPU, Memory, Disk
+
+
+# Scheduled Pipeliens
+
+##    Jenkins Pipeiine - Scheduled Build
+you will learn how to **schedule a Jenkins pipeline using cron**.
+
+pipeline {
+    agent any 
+    environment {
+        INSTITUTE_NAME = "Pathnex"
+    }
+    triggers {
+        cron('H 2 * * *')
+    }
+    stages {
+        stage('Checkout') {
+            steos {
+                git url: 'https://github.com/pathnex/sample-java-pp.git''
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean pacckage'
+            }
+        }
+    }
+}
+
+##    GitLab CI - Scheduled Pipeline
+you will learn now to **schedule GitLab CI pipelines via cron**.
+
+stages:
+  - build
+
+build:
+  stage:build
+  image:maven:3.8.1-jdk-17
+  script:
+    - git clone https://github.com/pathne/sample-java-app.git
+    - cd sample-java-app
+    - mvn clean packaage
